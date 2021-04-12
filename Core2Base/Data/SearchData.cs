@@ -7,16 +7,17 @@ using Core2Base.Models;
 
 namespace Core2Base.Data
 {
-    public class ProductData : Data
+    public class SearchData : Data
     {
-        public static List<Product> GetProductInfo()
+        public static List<Product> GetSearchInfo(string searchtext)
         {
-            List<Product> products = new List<Product>();
 
+        List<Product> searches = new List<Product>();
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string sql = @"Select * FROM Product";
+
+                string sql = @"Select * FROM Product where Name like" + searchtext;
 
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -32,9 +33,9 @@ namespace Core2Base.Data
                         UnitPrice = (double)reader["Price"],
                         Image = (string)reader["ProductImg"],
                     };
-                    products.Add(product);
+                    searches.Add(product);
                 }
-                return products;
+                return searches;
             }
         }
     }
