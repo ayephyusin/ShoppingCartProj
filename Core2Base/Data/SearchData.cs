@@ -17,7 +17,19 @@ namespace Core2Base.Data
             {
                 conn.Open();
 
-                string sql = @"Select * FROM Product where Name like" + searchtext;
+
+                //string sql = @"Select * FROM Product where Name like" + searchtext;
+
+                /*
+                string sql = @"SELECT ProductID,ProductName,ProductDesc,ProductCat,Price,ProductImg,Group_ConCat(ProductTag.Tags) as ""tags"" 
+                                FROM[Product] 
+                                OuterJoin Product.ProductId = ProductTag.ProductId";
+                */
+
+                string sql = @" SELECT * 
+                                FROM Product 
+                                Where concat(ProductName,ProductDesc)
+                                LIKE '% "+ searchtext +" %'";
 
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 SqlDataReader reader = cmd.ExecuteReader();
