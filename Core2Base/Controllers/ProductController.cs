@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Core2Base.Data;
 using Core2Base.Models;
 using Microsoft.AspNetCore.Mvc;
-
+using Core2Base.Data;
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Core2Base.Controllers
@@ -15,7 +15,8 @@ namespace Core2Base.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            List<Product> ProductList = ProductData.GetProductInfo();
+            List<Product> ProductList = new List<Product>();
+
             // use dummy data to show product details
             //ProductList.Add(new Product { Id = 1, Name = "Game 1", Description = "This is a wonderful game which is designed for people above age 11.", UnitPrice = 11.5, Image = "/productimages/1.jpg" });
             //ProductList.Add(new Product { Id = 2, Name = "Game 2", Description = "This is a wonderful game which is designed for people above age 12.", UnitPrice = 12.5, Image = "/productimages/2.png" });
@@ -31,7 +32,7 @@ namespace Core2Base.Controllers
 
 
             // this ViewData key-value pair is to pass data from Controller to View
-            ViewData["Products"] = ProductList;
+            //ViewData["Products"] = ProductList;
             return View();
         }
 
